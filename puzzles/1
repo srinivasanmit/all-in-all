@@ -1,0 +1,22 @@
+input_str = "abcddbcaaaaasbcdabcdaaadcbaae"
+longest_palindrome = ""
+def get_reversed(ipstr):
+    rev_str = ""
+    for i in ipstr :
+        rev_str = i + rev_str
+    return rev_str
+
+for i in range(len(input_str)) :
+    for j in range(i,len(input_str)) :
+        sub_str = input_str[i:j]
+        reversed_str = get_reversed(sub_str)
+        reversed_str = input_str.reversed()
+        if reversed_str == sub_str and len(reversed_str) > len(longest_palindrome) :
+                longest_palindrome = reversed_str
+                print "#####", input_str[i:j] , reversed_str
+print longest_palindrome
+            
+
+
+    
+    

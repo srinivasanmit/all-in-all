@@ -1,0 +1,4 @@
+INFO:root:trying info logging
+WARNING:root:trying warning logging
+ERROR:root:trying ERROR logging
+DEBUG:root:trying DEBUG logging
