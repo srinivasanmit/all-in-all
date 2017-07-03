@@ -1,0 +1,809 @@
+####### add_number_to_linkedlist_digits.py PROGRAM #######
+
+class Node() :
+    def __init__(self, data) :
+        self.data = data
+        self.next = None
+
+class LinkedList() :
+    def __init__(self) :
+        self.head = None
+        self.length = 0
+
+    def appendNodeAtFirst(self, data) :
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+        self.length += 1
+
+    def getNumberFromList(self) :
+        curr_node = self.head
+        number = "" 
+        while curr_node :
+            number += str(curr_node.data)
+            curr_node = curr_node.next
+        print number
+        return int(number)
+
+    def getLengthOfList(self) :
+        length = 0
+        curr_node = self.head
+        while curr_node :
+            length += 1
+            curr_node = curr_node.next
+        return length
+
+    def getLengthOfNumber(self, number) :
+        length = 1
+        while number / 10 != 0 :
+            length += 1
+            number = number / 10
+
+    def addNumberToList(self, number_to_add) :
+        orig_number = self.getNumberFromList()
+        added_number = orig_number + number_to_add
+        print "Number after addition - {0}".format(added_number)
+        curr_node = self.head
+        while curr_node.next :
+            curr_node.data = added_number % 10
+            curr_node = curr_node.next
+            added_number = added_number / 10
+        curr_node.data = added_number % 10
+        added_number = added_number / 10
+        if added_number != 0 :
+            new_node = Node(added_number % 10)
+            curr_node.next = new_node
+
+    def reverseList(self) :
+        curr_node = tmp_curr_node = self.head
+        prev_node = None
+        while curr_node :
+            tmp_curr_node = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
+            curr_node = tmp_curr_node
+        self.head = prev_node
+
+    def printNodes(self) :
+        curr_node = self.head 
+        while curr_node :
+            print curr_node.data
+            curr_node = curr_node.next
+
+if __name__ == "__main__" :
+    ll_obj = LinkedList()
+    number_to_insert = int(raw_input("Enter number to be populated in Linked List"))
+    while number_to_insert != 0 :
+        ll_obj.appendNodeAtFirst(number_to_insert % 10)
+        number_to_insert /= 10
+    number_to_add = int(raw_input("Enter number to be added "))
+    ll_obj.addNumberToList(number_to_add)
+    ll_obj.reverseList()
+    print "Linked List after addition "
+    ll_obj.printNodes()
+^^^^^^^  OUTPUT ^^^^^^^^
+Enter number to be populated in Linked ListEnter number to be added 11000
+Number after addition - 11001
+Linked List after addition 
+1
+1
+0
+0
+1
+
+
+
+####### binary_search.py PROGRAM #######
+class BinarySearch() :
+    def __init__(self, list_to_search) :
+        self.list_to_search = list_to_search
+
+    def binary_search(self, element_to_search) :
+        low_index = 0
+        high_index = len(self.list_to_search) - 1
+        element_found = False
+        while int((high_index + low_index)/2) : #> 0  :
+            if element_to_search == self.list_to_search[low_index] :
+                return low_index
+            elif element_to_search == self.list_to_search[high_index] :
+                return high_index
+            elif element_to_search > self.list_to_search[int((high_index + low_index)/2)] :
+                low_index =  int((high_index + low_index)/2)
+            elif element_to_search < self.list_to_search[int((high_index + low_index)/2)] :
+                high_index = int((high_index + low_index)/2)
+            elif element_to_search == self.list_to_search[int((high_index + low_index)/2)] :
+                return int((high_index + low_index)/2)
+        else :
+            return element_found
+
+    def binary_search_recursive(self, element_to_search, low_index, high_index) :
+        if element_to_search == list_to_search[low_index] :
+            return low_index
+        elif element_to_search == list_to_search[high_index] :
+            return high_index
+        elif element_to_search == self.list_to_search[int((high_index + low_index)/2)] :
+            return int((high_index + low_index)/2)
+        elif int((high_index + low_index)/2) :
+            if element_to_search > self.list_to_search[int((high_index + low_index)/2)] :
+                self.binary_search_recursive(element_to_search, int((high_index + low_index)/2), high_index) 
+            elif element_to_search < self.list_to_search[int((high_index + low_index)/2)] :
+                self.binary_search_recursive(low_index, element_to_search, int((high_index + low_index)/2)) 
+    
+if __name__ == "__main__" :
+    list_to_search = [1,2,3,4,5,6,7,8,9,10]
+    bs_obj = BinarySearch(list_to_search) 
+    for i in xrange(11) :
+        print "Searching for element {0}".format(i)
+        element_at_index = bs_obj.binary_search_recursive(i, 0, len(list_to_search)-1)
+        if element_at_index :
+            print "Element {0} found at index : {1}".format(i, element_at_index)
+    for i in xrange(11) :
+        print "Searching for element {0}".format(i)
+        element_at_index = bs_obj.binary_search(i)
+        if element_at_index :
+            print "Element {0} found at index : {1}".format(i, element_at_index)
+^^^^^^^  OUTPUT ^^^^^^^^
+Searching for element 0
+Searching for element 1
+Searching for element 2
+Searching for element 3
+Searching for element 4
+Searching for element 5
+Element 5 found at index : 4
+Searching for element 6
+Searching for element 7
+Searching for element 8
+Searching for element 9
+Searching for element 10
+Element 10 found at index : 9
+Searching for element 0
+Searching for element 1
+Searching for element 2
+Element 2 found at index : 1
+Searching for element 3
+Element 3 found at index : 2
+Searching for element 4
+Element 4 found at index : 3
+Searching for element 5
+Element 5 found at index : 4
+Searching for element 6
+Element 6 found at index : 5
+Searching for element 7
+Element 7 found at index : 6
+Searching for element 8
+Element 8 found at index : 7
+Searching for element 9
+Element 9 found at index : 8
+Searching for element 10
+Element 10 found at index : 9
+
+
+
+####### BST.py PROGRAM #######
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Queue():
+    def __init__(self) :
+        self.level_order_queue = []        
+
+    def enqueue(self, levelnode) :
+        self.level_order_queue.append(levelnode)
+
+    def dequeue(self) :
+        if len(self.level_order_queue) > 0 :
+            return self.level_order_queue.pop(0)
+        else :
+            return None
+
+class BST():
+    def __init__(self, data):
+        self.root = Node(data)
+
+    def insertNode(self, data, curr_node):
+        if curr_node.data > data :
+            if curr_node.left == None :
+                curr_node.left = Node(data)
+                print "Inserting {0} to the left of {1}".format(curr_node.left.data, curr_node.data)
+            else :
+                self.insertNode(data, curr_node.left)
+        else :
+            if curr_node.right == None :
+                curr_node.right = Node(data)
+                print "Inserting {0} to the right of {1}".format(curr_node.right.data, curr_node.data)
+            else :
+                self.insertNode(data, curr_node.right)
+    
+    def PreOrderTraversal(self, present_root) :
+        if not present_root :
+            return
+        print present_root.data
+        self.PreOrderTraversal(present_root.left)
+        self.PreOrderTraversal(present_root.right)
+            
+    def InOrderTraversal(self, present_root) :
+        if present_root :
+            self.InOrderTraversal(present_root.left)
+            print present_root.data
+            self.InOrderTraversal(present_root.right)
+        else :
+            return
+
+    def PostOrderTraversal(self, present_root) :
+        if not present_root :
+            return
+        self.PostOrderTraversal(present_root.left)
+        self.PostOrderTraversal(present_root.right)
+        print present_root.data
+
+    def LevelOrderTraversal(self) :
+        queue_obj = Queue()
+        temp_node = self.root
+        while temp_node :
+            print temp_node.data
+            if temp_node.left :
+                queue_obj.enqueue(temp_node.left)
+            if temp_node.right :
+                queue_obj.enqueue(temp_node.right)
+            temp_node = queue_obj.dequeue()
+
+    def GetTreeHeight(self, present_root):
+        if present_root :
+            lheight = self.GetTreeHeight(present_root.left)
+            rheight = self.GetTreeHeight(present_root.right)
+            print lheight,rheight
+            if lheight > rheight :
+                return lheight + 1
+            else :
+                return rheight + 1
+        else :
+            return 0     
+
+if __name__ == "__main__" :
+    bst_obj = BST(5)
+    for i in [1,3,8,6,4,2] :
+    #for i in [5,2,3,1] :
+        bst_obj.insertNode(i, bst_obj.root) 
+    print "Pre-Order Traversal"
+    bst_obj.PreOrderTraversal(bst_obj.root)
+    print "In-Order Traversal"
+    bst_obj.InOrderTraversal(bst_obj.root)
+    print "Post-Order Traversal"
+    bst_obj.PostOrderTraversal(bst_obj.root)
+    print "Level Order Traversal"
+    bst_obj.LevelOrderTraversal()
+    tree_height = bst_obj.GetTreeHeight(bst_obj.root)
+    print "Height of the given binary tree is {0}".format(tree_height)
+^^^^^^^  OUTPUT ^^^^^^^^
+Inserting 1 to the left of 5
+Inserting 3 to the right of 1
+Inserting 8 to the right of 5
+Inserting 6 to the left of 8
+Inserting 4 to the right of 3
+Inserting 2 to the left of 3
+Pre-Order Traversal
+5
+1
+3
+2
+4
+8
+6
+In-Order Traversal
+1
+2
+3
+4
+5
+6
+8
+Post-Order Traversal
+2
+4
+3
+1
+6
+8
+5
+Level Order Traversal
+5
+1
+8
+3
+6
+2
+4
+0 0
+0 0
+1 1
+0 2
+0 0
+1 0
+3 2
+Height of the given binary tree is 4
+
+
+
+####### bubble_sort.py PROGRAM #######
+def bubble_sort(A) :
+    for i in range(len(A)) :
+        swapped = False
+        for j in range (0, len(A)-i-1) :
+            if A[j] > A[j+1] :
+                swap(A, j, j+1)
+                swapped = True
+                #print "A for i,j -> {0} for {1}, {2}".format(A, i, j)
+        print "\nList after pass number {0} of Bubble sorting --> {1} ".format(i+1, A)
+        if not swapped :
+            print "\n<----- List is sorted now. No more passes required. Short-circuiting ! ---->"
+            break
+
+def swap(A, x, y) :
+    A[x] = A[x] + A[y]
+    A[y] = A[x] - A[y]
+    A[x] = A[x] - A[y]
+
+A = [54,27,13,12,7,6,4,5,0,1,2,3]
+print "\nList before sorting {0}\n".format(A)
+bubble_sort(A)
+print "\nFinal List after sorting {0}\n".format(A)
+    
+
+^^^^^^^  OUTPUT ^^^^^^^^
+
+List before sorting [54, 27, 13, 12, 7, 6, 4, 5, 0, 1, 2, 3]
+
+
+List after pass number 1 of Bubble sorting --> [27, 13, 12, 7, 6, 4, 5, 0, 1, 2, 3, 54] 
+
+List after pass number 2 of Bubble sorting --> [13, 12, 7, 6, 4, 5, 0, 1, 2, 3, 27, 54] 
+
+List after pass number 3 of Bubble sorting --> [12, 7, 6, 4, 5, 0, 1, 2, 3, 13, 27, 54] 
+
+List after pass number 4 of Bubble sorting --> [7, 6, 4, 5, 0, 1, 2, 3, 12, 13, 27, 54] 
+
+List after pass number 5 of Bubble sorting --> [6, 4, 5, 0, 1, 2, 3, 7, 12, 13, 27, 54] 
+
+List after pass number 6 of Bubble sorting --> [4, 5, 0, 1, 2, 3, 6, 7, 12, 13, 27, 54] 
+
+List after pass number 7 of Bubble sorting --> [4, 0, 1, 2, 3, 5, 6, 7, 12, 13, 27, 54] 
+
+List after pass number 8 of Bubble sorting --> [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54] 
+
+List after pass number 9 of Bubble sorting --> [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54] 
+
+<----- List is sorted now. No more passes required. Short-circuiting ! ---->
+
+Final List after sorting [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54]
+
+
+
+
+####### insertion_sort.py PROGRAM #######
+def insertion_sort(A) :
+    for i in range(len(A)) :
+        key = A[i]
+        j = i - 1
+        while j >= 0 and key < A[j] :
+            A[j+1] = A[j]
+            j -= 1
+        A[j+1] = key
+        print "\nAfter pass {0} of Insertion sort -> {1}".format(i+1, A)
+
+A = [54,27,13,12,7,6,4,5,0,1,2,3]
+print "\nList before sorting {0}\n".format(A)
+insertion_sort(A)
+print "\nFinal List after sorting {0}\n".format(A)
+
+        
+^^^^^^^  OUTPUT ^^^^^^^^
+
+List before sorting [54, 27, 13, 12, 7, 6, 4, 5, 0, 1, 2, 3]
+
+
+After pass 1 of Insertion sort -> [54, 27, 13, 12, 7, 6, 4, 5, 0, 1, 2, 3]
+
+After pass 2 of Insertion sort -> [27, 54, 13, 12, 7, 6, 4, 5, 0, 1, 2, 3]
+
+After pass 3 of Insertion sort -> [13, 27, 54, 12, 7, 6, 4, 5, 0, 1, 2, 3]
+
+After pass 4 of Insertion sort -> [12, 13, 27, 54, 7, 6, 4, 5, 0, 1, 2, 3]
+
+After pass 5 of Insertion sort -> [7, 12, 13, 27, 54, 6, 4, 5, 0, 1, 2, 3]
+
+After pass 6 of Insertion sort -> [6, 7, 12, 13, 27, 54, 4, 5, 0, 1, 2, 3]
+
+After pass 7 of Insertion sort -> [4, 6, 7, 12, 13, 27, 54, 5, 0, 1, 2, 3]
+
+After pass 8 of Insertion sort -> [4, 5, 6, 7, 12, 13, 27, 54, 0, 1, 2, 3]
+
+After pass 9 of Insertion sort -> [0, 4, 5, 6, 7, 12, 13, 27, 54, 1, 2, 3]
+
+After pass 10 of Insertion sort -> [0, 1, 4, 5, 6, 7, 12, 13, 27, 54, 2, 3]
+
+After pass 11 of Insertion sort -> [0, 1, 2, 4, 5, 6, 7, 12, 13, 27, 54, 3]
+
+After pass 12 of Insertion sort -> [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54]
+
+Final List after sorting [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54]
+
+
+
+
+####### LevelOrderTraversal.py PROGRAM #######
+# Recursive Python program for level order traversal of Binary Tree
+ 
+# A node structure
+class Node:
+ 
+    # A utility function to create a new node
+    def __init__(self, key):
+        self.data = key 
+        self.left = None
+        self.right = None
+ 
+ 
+# Function to  print level order traversal of tree
+def printLevelOrder(root):
+    h = height(root)
+    for i in range(1, h+1):
+        printGivenLevel(root, i)
+ 
+ 
+# Print nodes at a given level
+def printGivenLevel(root , level):
+    if root is None:
+        return
+    if level == 1:
+        print "%d" %(root.data),
+    elif level > 1 :
+        printGivenLevel(root.left , level-1)
+        printGivenLevel(root.right , level-1)
+ 
+ 
+""" Compute the height of a tree--the number of nodes
+    along the longest path from the root node down to
+    the farthest leaf node
+"""
+def height(node):
+    if node is None:
+        return 0
+    else :
+        # Compute the height of each subtree 
+        lheight = height(node.left)
+        rheight = height(node.right)
+ 
+        #Use the larger one
+        if lheight > rheight :
+            return lheight+1
+        else:
+            return rheight+1
+ 
+# Driver program to test above function
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+ 
+print "Level order traversal of binary tree is -"
+printLevelOrder(root)
+^^^^^^^  OUTPUT ^^^^^^^^
+Level order traversal of binary tree is -
+1 2 3 4 5
+
+
+
+####### linkedlist_loop_check.py PROGRAM #######
+
+class Node() :
+    def __init__(self, data) :
+        self.data = data
+        self.next = None
+
+class LinkedList() :
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.ll_length = 0
+
+    def appendNode(self, data) :
+        new_node = Node(data)
+        if not self.head :
+            self.head = new_node
+        else :
+            curr_node = self.head
+            while curr_node.next :
+                curr_node = curr_node.next
+            curr_node.next = new_node
+            self.tail = new_node
+
+    def create_loop(self) :
+        self.tail.next = self.head
+
+    def check_for_loops(self) :
+        hop1 = hop2 = self.head
+        while hop1 :
+            hop1 = hop1.next
+            hop2 = hop2.next.next
+            if hop1 == hop2 :
+                print "Loop detected"
+                break
+        else :
+            print "Loop not detected"
+
+if __name__ == "__main__" :
+    ll_obj = LinkedList()
+    print "Appending 1 to list"
+    ll_obj.appendNode(1)
+    print "Appending 2 to list"
+    ll_obj.appendNode(2)
+    print "Appending 3 to list"
+    ll_obj.appendNode(3)
+    print "Appending 4 to list"
+    ll_obj.appendNode(4)
+    print "Appending 5 to list"
+    ll_obj.appendNode(5)
+    ll_obj.create_loop()
+    print "Checking for loops........"
+    ll_obj.check_for_loops()
+
+^^^^^^^  OUTPUT ^^^^^^^^
+Appending 1 to list
+Appending 2 to list
+Appending 3 to list
+Appending 4 to list
+Appending 5 to list
+Checking for loops........
+Loop detected
+
+
+
+####### linked_list.py PROGRAM #######
+
+class Node() :
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList() :
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.ll_length = 0
+    
+    def appendNode(self, data):
+        new_node = Node(data)
+        self.ll_length += 1
+        if self.head == None :
+            self.head = new_node
+            self.tail = new_node
+        else :
+            self.tail.next = new_node
+            self.tail = new_node
+
+    def insertNode(self, data, position) :
+        new_node = Node(data)
+        curr_node = self.head
+        i = 1
+        self.ll_length += 1
+        if position > self.ll_length :
+            print "Position can't be greater than the length of LL"
+        elif position != 1 :
+            while i < position -1 :
+                curr_node = curr_node.next
+                i += 1
+            new_node.next = curr_node.next
+            curr_node.next = new_node
+        else :
+            new_node.next = curr_node
+            self.head = new_node
+
+    def deleteNode(self, data):
+        curr_node = self.head
+        prev_node = self.head 
+        if self.head.data == data :
+            self.head = self.head.next
+            self.ll_length -= 1
+            return
+
+        while curr_node.next != None :
+            if curr_node.data == data :
+                prev_node.next = curr_node.next
+                del(curr_node)
+                self.ll_length -= 1
+                break
+            prev_node = curr_node
+            curr_node = curr_node.next
+            
+        else :
+            print "Could not find item to delete in the linked list"
+    
+    def reverseList(self):
+        tmp_curr_node = curr_node = self.head
+        prev_node = None
+        revList = LinkedList()
+        while curr_node :
+            tmp_current_node = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
+            revList.appendNode(curr_node.data)
+            curr_node = tmp_current_node
+        self.head = prev_node
+        return revList
+    
+    def printNodes(self) :
+        curr_node = self.head
+        while curr_node != None :
+            print curr_node.data
+            curr_node = curr_node.next
+
+    def getLength(self, head_pointer) :
+        count = 0
+        while head_pointer :
+            count += 1
+            head_pointer = head_pointer.next
+        return count
+
+    def checkPalindromeLists(self, revobj ) :
+        curr_node = self.head
+        rev_curr_node = revobj.head
+        if self.getLength(self.head) != self.getLength(revobj.head) :
+            print "Linked lists are not palidromes"
+        while curr_node :
+            if curr_node.data != rev_curr_node.data :
+                return False
+            curr_node = curr_node.next
+            rev_curr_node = rev_curr_node.next
+        else :
+            return True
+
+if __name__ == "__main__":
+    ll_obj = LinkedList()
+    print "Appending 1 to the linked list"
+    ll_obj.appendNode(1)
+    ll_obj.printNodes()
+    print "Appending 3 to the linked list"
+    ll_obj.appendNode(3)
+    ll_obj.printNodes()
+    print "Appending 4 to the linked list"
+    ll_obj.appendNode(4)
+    ll_obj.printNodes()
+    print "Appending 5 to the linked list"
+    ll_obj.appendNode(5)
+    ll_obj.printNodes()
+    print "Inserting 2 at position 1  to the linked list"
+    ll_obj.insertNode(2,1)
+    ll_obj.printNodes()
+    print "Deleting node with data 4 in the linked list"
+    ll_obj.deleteNode(2)
+    ll_obj.printNodes()
+    print "Trying to delete an item not in the list - 20"
+    ll_obj.deleteNode(20)
+    ll_obj.printNodes()
+    rev_obj = ll_obj.reverseList()
+    print "Printing linked list after reversing"
+    ll_obj.printNodes()
+    print "Printing original linked list"
+    rev_obj.printNodes()
+    if ll_obj.checkPalindromeLists(rev_obj) :
+        print "Linked lists are palindrome"
+    else :
+        print "Linked lists are not palindrome"
+            
+^^^^^^^  OUTPUT ^^^^^^^^
+Appending 1 to the linked list
+1
+Appending 3 to the linked list
+1
+3
+Appending 4 to the linked list
+1
+3
+4
+Appending 5 to the linked list
+1
+3
+4
+5
+Inserting 2 at position 1  to the linked list
+2
+1
+3
+4
+5
+Deleting node with data 4 in the linked list
+1
+3
+4
+5
+Trying to delete an item not in the list - 20
+Could not find item to delete in the linked list
+1
+3
+4
+5
+Printing linked list after reversing
+5
+4
+3
+1
+Printing original linked list
+1
+3
+4
+5
+Linked lists are not palindrome
+
+
+
+####### selection_sort.py PROGRAM #######
+def selection_sort(A) :
+    for i in range(len(A)-1) :
+        tmp_min_index = i
+        for j in range(i, len(A)-1) :
+            if A[tmp_min_index] > A[j+1] :
+                tmp_min_index = j+1
+        swap(A, i, tmp_min_index)
+        print "\nAfter pass {0} of Selection sorting --> {1} ".format(i+1, A)
+
+def swap(A, x, y):
+    tmp_var = A[x]
+    A[x] = A[y]
+    A[y] = tmp_var
+
+if __name__ == "__main__" :
+    A = [54,27,13,12,7,6,4,5,1,2,3]
+    print "\nList before sorting {0}\n".format(A)
+    selection_sort(A)
+    print "\nFinal List after sorting {0}\n".format(A)
+^^^^^^^  OUTPUT ^^^^^^^^
+
+List before sorting [54, 27, 13, 12, 7, 6, 4, 5, 1, 2, 3]
+
+
+After pass 1 of Selection sorting --> [1, 27, 13, 12, 7, 6, 4, 5, 54, 2, 3] 
+
+After pass 2 of Selection sorting --> [1, 2, 13, 12, 7, 6, 4, 5, 54, 27, 3] 
+
+After pass 3 of Selection sorting --> [1, 2, 3, 12, 7, 6, 4, 5, 54, 27, 13] 
+
+After pass 4 of Selection sorting --> [1, 2, 3, 4, 7, 6, 12, 5, 54, 27, 13] 
+
+After pass 5 of Selection sorting --> [1, 2, 3, 4, 5, 6, 12, 7, 54, 27, 13] 
+
+After pass 6 of Selection sorting --> [1, 2, 3, 4, 5, 6, 12, 7, 54, 27, 13] 
+
+After pass 7 of Selection sorting --> [1, 2, 3, 4, 5, 6, 7, 12, 54, 27, 13] 
+
+After pass 8 of Selection sorting --> [1, 2, 3, 4, 5, 6, 7, 12, 54, 27, 13] 
+
+After pass 9 of Selection sorting --> [1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54] 
+
+After pass 10 of Selection sorting --> [1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54] 
+
+Final List after sorting [1, 2, 3, 4, 5, 6, 7, 12, 13, 27, 54]
+
+
+
+
+####### while_else.py PROGRAM #######
+i = 0
+while i<5 :
+    print i
+    i += 1
+    if i == 3 :
+        break
+else :
+    print "Loop was successfully executed"
+^^^^^^^  OUTPUT ^^^^^^^^
+0
+1
+2
+
+
+

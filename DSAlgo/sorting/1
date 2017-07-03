@@ -1,0 +1,19 @@
+def bubble_sort(A) :
+    for i in range(len(A)) :
+        for j in range (i, len(A)-1) :
+            if A[i] > A[j+1] :
+                swap(A, i, j+1)
+                print "A for i,j -> {0} for {1}, {2}".format(A, i, j)
+            print "List after pass number {0} of sorting".format(i)
+
+def swap(A, x, y) :
+    A[x] = A[x] + A[y]
+    A[y] = A[x] - A[y]
+    A[x] = A[x] - A[y]
+
+A = [54,27,13,12,7,6,4,1,2]
+print "List before sorting {0}".format(A)
+bubble_sort(A)
+print "List after sorting {0}".format(A)
+    
+
