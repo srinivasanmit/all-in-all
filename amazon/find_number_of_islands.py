@@ -1,0 +1,34 @@
+'''
+Given a 2D matrix with elements 1 and 0, where 1 is land and 0 is water. Find the number of islands. ( http://www.geeksforgeeks.org/find-number-of-islands/ )
+'''
+
+def find_no_of_islands(lst):
+    no_of_islands = 0
+    for row in range(1,len(lst)-1):
+        for col in range(1, len(lst[0])-1) :
+            if lst[row][col] == 0 and all( lst[x[0]][x[1]] == 1 for x in get_vals_to_eval(row,col)) :
+                no_of_islands += 1 
+    print "Number of islands in the given matrix is : {0} ".format(no_of_islands)
+
+def get_vals_to_eval(row, col) :
+    list_of_vals_to_eval = []
+    for i in range(row-1, row+2) :
+        for j in range(col-1, col+2) :
+            if (i,j) != (row,col) :
+                list_of_vals_to_eval.append([i,j])
+                print i,j
+    print "List to compare : -> {0} ".format(list_of_vals_to_eval)
+    return list_of_vals_to_eval
+
+input_matrix = [ [1,1,1], [1,0,1], [1,1,1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+input_matrix = [ [1, 1, 0, 0, 0], [0, 1, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 0, 1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+

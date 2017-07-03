@@ -1,0 +1,560 @@
+####### compare_arrays.py PROGRAM #######
+'''
+Given two arrays a and b write a function comp(a, b) (compSame(a, b) in Clojure) that checks whether the two arrays have the "same" elements, with the same multiplicities. "Same" means, here, that the elements in b are the elements in a squared, regardless of the order.
+
+Examples
+
+Valid arrays
+
+a = [121, 144, 19, 161, 19, 144, 19, 11]  
+b = [121, 14641, 20736, 361, 25921, 361, 20736, 361]
+comp(a, b) returns true because in b 121 is the square of 11, 14641 is the square of 121, 20736 the square of 144, 361 the square of 19, 25921 the square of 161, and so on. It gets obvious if we write b's elements in terms of squares:
+
+a = [121, 144, 19, 161, 19, 144, 19, 11] 
+b = [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]
+Invalid arrays
+
+If we change the first number to something else, comp may not return true anymore:
+
+a = [121, 144, 19, 161, 19, 144, 19, 11]  
+b = [132, 14641, 20736, 361, 25921, 361, 20736, 361]
+comp(a,b) returns false because in b 132 is not the square of any number of a.
+
+a = [121, 144, 19, 161, 19, 144, 19, 11]  
+b = [121, 14641, 20736, 36100, 25921, 361, 20736, 361]
+comp(a,b) returns false because in b 36100 is not the square of any number of a.
+
+Remarks
+
+a or b might be [] (all languages). a or b might be nil or null or None (except in Haskell, Elixir, C++, Rust).
+
+If a or b are nil (or null or None), the problem doesn't make sense so return false.
+
+If a or b are empty the result is evident by itself.
+
+Note for C
+
+The two arrays have the same size (> 0) given as parameter in function comp.
+'''
+
+def comp(a, b) :
+    print a
+    print b
+    if a ==[] and b ==[] :
+        return True
+    elif a == None or b == None :
+        return False
+    for x in a :
+        if x*x in b :
+            b.remove(x*x)
+            print b
+        else :
+            return False
+    return True
+
+def comp1(a, b) :    
+    return "False" if a == None or b ==None else all([ x*x in b and b.remove(x*x) == None for x in a ])
+
+a1 = [121, 144, 19, 161, 19, 144, 19, 11]
+a2 = [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]
+print comp1(a1, a2)
+
+a1 = [121, 144, 19, 161, 19, 144, 19, 11]
+a2 = [231, 14641, 20736, 361, 25921, 361, 20736, 361]
+print comp1(a1, a2)
+
+a1 = []
+a2 = None
+print comp1(a1, a2)
+^^^^^^^  OUTPUT ^^^^^^^^
+True
+False
+False
+
+
+
+####### complimentary_dna.py PROGRAM #######
+'''
+In DNA strings, symbols "A" and "T" are complements of each other, as "C" and "G". You have function with one side of the DNA (string, except for Haskell); you need to get the other complementary side. DNA strand is never empty or there is no DNA at all (again, except for Haskell).
+
+DNA_strand ("ATTGC") # return "TAACG"
+
+DNA_strand ("GTAT") # return "CATA"
+'''
+
+compliment_dict = { 'C' : 'G', 'G': 'C', 'A' :'T', 'T': 'A'}
+def DNA_strand(dna) :
+    return ''.join([compliment_dict[c] for c in list(dna)])
+
+print DNA_strand("ATTGC")
+print DNA_strand("GTAT")
+print DNA_strand("AAAA")
+print DNA_strand("ATTGC")
+print DNA_strand("GTAT")
+
+'''
+import string
+def DNA_strand(dna):
+    return dna.translate(string.maketrans("ATCG","TAGC"))
+    # Python 3.4 solution || you don't need to import anything :)
+    # return dna.translate(str.maketrans("ATCG","TAGC"))
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+TAACG
+CATA
+TTTT
+TAACG
+CATA
+
+
+
+####### dubstep.py PROGRAM #######
+'''
+song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB")
+  # =>  WE ARE THE CHAMPIONS MY FRIEND
+'''
+def song_decoder(song):
+    orig_song = ''
+    for word in song.split('WUB') :
+        if word != '' :
+            orig_song += word + ' '
+    return orig_song[:-1]
+
+print song_decoder("AWUBBWUBC")
+print song_decoder("AWUBWUBWUBBWUBWUBWUBC")
+print song_decoder("WUBAWUBBWUBCWUB")
+
+def song_decoder1(song):
+    return " ".join(song.replace('WUB', ' ').split())
+
+print song_decoder("AWUBBWUBC")
+print song_decoder("AWUBWUBWUBBWUBWUBWUBC")
+print song_decoder("WUBAWUBBWUBCWUB")
+
+^^^^^^^  OUTPUT ^^^^^^^^
+A B C
+A B C
+A B C
+A B C
+A B C
+A B C
+
+
+
+####### find_next_square.py PROGRAM #######
+import math
+def find_next_square(n) :
+    sqrt_of_n = int(math.sqrt(n))
+    return (sqrt_of_n+1)**2 if sqrt_of_n ** 2 == n else -1
+
+print find_next_square(121)
+print find_next_square(625)
+print find_next_square(114)
+print find_next_square(319225)
+print find_next_square(15241383936)
+print find_next_square(155)
+print find_next_square(342786627)
+
+'''
+def find_next_square(sq):
+    root = sq ** 0.5
+    if root.is_integer():
+        return (root + 1)**2
+    return -1
+
+def find_next_square(sq):
+    x = sq**0.5    
+    return -1 if x % 1 else (x+1)**2
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+144
+676
+-1
+320356
+15241630849
+-1
+-1
+
+
+
+####### find_shortest_substring.py PROGRAM #######
+'''
+test.assert_equals(find_short("bitcoin take over the world maybe who knows perhaps"), 3)
+test.assert_equals(find_short("turns out random test cases are easier than writing out basic ones"), 3)
+test.assert_equals(find_short("lets talk about javascript the best language"), 3)
+test.assert_equals(find_short("i want to travel the world writing code one day"), 1)
+test.assert_equals(find_short("Lets all go on holiday somewhere very cold"), 2)
+'''
+
+def find_short(s):
+    return min([len(i) for i in s.split(' ')])
+
+print find_short("bitcoin take over the world maybe who knows perhaps")
+print find_short("turns out random test cases are easier than writing out basic ones")
+print find_short("lets talk about javascript the best language")
+print find_short("i want to travel the world writing code one day")
+print find_short("Lets all go on holiday somewhere very cold")
+
+'''
+def find_short(s):
+    return min(map(len, s.split(' ')))
+
+def find_short(s):
+    return len(min(s.split(' '), key=len))
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+3
+3
+3
+1
+2
+
+
+
+####### find_smallest_int.py PROGRAM #######
+def findSmallestInt(arr):
+    return min(arr)
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### high_and_low_nos.py PROGRAM #######
+'''
+In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+
+Example:
+
+high_and_low("1 2 3 4 5")  # return "5 1"
+high_and_low("1 2 -3 4 5") # return "5 -3"
+high_and_low("1 9 3 4 -5") # return "9 -5"
+Notes:
+
+All numbers are valid Int32, no need to validate them.
+There will always be at least one number in the input string.
+Output string must be two numbers separated by a single space, and highest number is first.
+'''
+
+def high_and_low(numbers):
+    numbers = numbers.split(' ')
+    high = int(numbers[0])
+    low = int(numbers[0])
+    for i in range(1, len(numbers)) :
+        if int(numbers[i]) > high :
+            high = int(numbers[i])
+        elif int(numbers[i]) < low :
+            low = int(numbers[i])
+    return '{0} {1}'.format(high,low)
+
+print high_and_low("4 5 29 54 4 0 -214 542 -64 1 -3 6 -6")
+print high_and_low("1 -1")
+print high_and_low("1 1")
+print high_and_low("-1 -1")
+print high_and_low("1 -1 0")
+print high_and_low("1 1 0")
+print high_and_low("-1 -1 0")
+print high_and_low("42")
+print high_and_low("1 2 3 4 5")
+print high_and_low("1 2 -3 4 5")
+print high_and_low("1 9 3 4 -5")
+
+^^^^^^^  OUTPUT ^^^^^^^^
+542 -214
+1 -1
+1 1
+-1 -1
+1 -1
+1 0
+0 -1
+42 42
+5 1
+5 -3
+9 -5
+
+
+
+####### iqtest_evenness.py PROGRAM #######
+def iq_test(numbers):
+    even_position = 0
+    odd_position = 0
+    numbers = numbers.split()
+    print numbers
+    for i in range(len(numbers)) :
+        numbers[i] = int(numbers[i])
+        print numbers[i], type(numbers[i])
+        if (numbers[i] % 2 == 0) : 
+            if (even_position == 0) :
+                even_position == i+1
+            elif odd_position > 0 :
+                print odd_position
+                return odd_position
+        elif (numbers[i] % 2 == 1) and (odd_position == 0) :
+            odd_position = i+1
+        elif (numbers[i] % 2 == 1) and (even_position > 0) :
+            print even_position
+            return even_position
+        else :
+            print "None of the conditions satisfied"
+            continue
+
+print iq_test("2 4 7 8 10")
+print iq_test("1 2 1 1")
+print iq_test("1 2 2")
+^^^^^^^  OUTPUT ^^^^^^^^
+['2', '4', '7', '8', '10']
+2 <type 'int'>
+4 <type 'int'>
+7 <type 'int'>
+8 <type 'int'>
+10 <type 'int'>
+None
+['1', '2', '1', '1']
+1 <type 'int'>
+2 <type 'int'>
+1 <type 'int'>
+None of the conditions satisfied
+1 <type 'int'>
+None of the conditions satisfied
+None
+['1', '2', '2']
+1 <type 'int'>
+2 <type 'int'>
+2 <type 'int'>
+None
+
+
+
+####### n_power_successive_powers_of_p.py PROGRAM #######
+def dig_sum_power_successive_n(n,p) :
+    digits = 1
+    tmp = n
+    while tmp // 10 > 0 :
+        digits += 1
+        tmp //= 10
+    print "digits == ", digits
+    tmp = n
+    tmp1 = 0
+    for i in range(1, digits+1) :
+        tmp1 += pow((tmp % 10) , (digits-i + p))
+        tmp //= 10
+    return tmp1
+        
+def dig_pow(n, p):
+    # your code
+    returned = dig_sum_power_successive_n(n,p)
+    print "returned    ", returned 
+    if returned % n == 0 :
+        return (returned / n)
+    else :
+        return -1
+
+print "result 1 ", dig_pow(89, 1)
+print "result 2 ", dig_pow(92, 1)
+print "result 3 ", dig_pow(46288, 3)
+
+'''
+def dig_pow(n, p):
+  s = 0
+  for i,c in enumerate(str(n)):
+     s += pow(int(c),p+i)
+  return s/n if s%n==0 else -1
+
+def dig_pow(n, p):
+    k, fail = divmod(sum(int(d)**(p + i) for i, d in enumerate(str(n))), n)
+    return -1 if fail else k
+
+def dig_pow(n, p):
+    digit_power = sum(int(x)**pw for pw,x in enumerate(str(n),p))
+    if digit_power % n == 0:
+        return digit_power / n
+    return -1
+
+def dig_pow(n, p):
+  s = reduce(lambda acc,(i,c): acc+pow(int(c),p+i), enumerate(str(n)), 0)
+  return s/n if s%n==0 else -1
+
+def dig_pow(n, p):
+    
+    total = 0
+    digits = [int(d) for d in str(n)]
+    
+    for i in digits:
+        total += i**p
+        p += 1
+        
+    if total%n == 0:
+        return int(total/n)
+    else:
+        return -1
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+result 1  digits ==  2
+returned     89
+1
+result 2  digits ==  2
+returned     13
+-1
+result 3  digits ==  5
+returned     2360688
+51
+
+
+
+####### open_or_senior.py PROGRAM #######
+'''
+The Western Suburbs Croquet Club has two categories of membership, Senior and Open. They would like your help with an application form that will tell prospective members which category they will be placed.
+
+To be a senior, a member must be at least 55 years old and have a handicap greater than 7. In this croquet club, handicaps range from -2 to +26; the better the player the lower the handicap.
+
+Input
+
+Input will consist of a list of lists containing two items each. Each list contains information for a single potential member. Information consists of an integer for the person's age and an integer for the person's handicap.
+
+Example Input
+
+[[18, 20],[45, 2],[61, 12],[37, 6],[21, 21],[78, 9]]
+Output
+
+Output will consist of a list of string values (in Haskell: Open or Senior) stating whether the respective member is to be placed in the senior or open category.
+
+Example Output
+
+["Open", "Open", "Senior", "Open", "Open", "Senior"]
+'''
+
+def openOrSenior(data):
+    output_list = []
+    for each_set in data :
+        if each_set[0] >= 55 and each_set[1] > 7 :
+            output_list.append("Senior")
+        else :
+            output_list.append("Open")
+    return output_list
+
+print openOrSenior([[45, 12],[55,21],[19, -2],[104, 20]])
+print openOrSenior([[16, 23],[73,1],[56, 20],[1, -1]])
+print openOrSenior([[18, 20],[45, 2],[61, 12],[37, 6],[21, 21],[78, 9]])
+
+
+'''
+def openOrSenior(members):
+    return ["Senior" if m[0]>54 and m[1]>7 else "Open" for m in members]
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+['Open', 'Senior', 'Open', 'Senior']
+['Open', 'Open', 'Senior', 'Open']
+['Open', 'Open', 'Senior', 'Open', 'Open', 'Senior']
+
+
+
+####### remove_chars.py PROGRAM #######
+'''
+It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter.
+'''
+
+def remove_char(s):
+    remove
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### shortest_direction.py PROGRAM #######
+def dirReduc(arr):
+    dir_dict = {'NORTH':'SOUTH', 'SOUTH':'NORTH', 'EAST':'WEST', 'WEST':'EAST'}
+    #return [arr.remove(i) and arr.remove(dir_dict[i]) if dir_dict[i] in arr for i in arr]
+    print arr
+    for i in arr:
+        if dir_dict[i] in arr:
+            print i, dir_dict[i]
+            arr.remove(i)
+            print arr
+            arr.remove(dir_dict[i])
+            print arr
+    return arr
+
+a = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]
+print "Result -----> ",dirReduc(a)
+u=["NORTH", "WEST", "SOUTH", "EAST"]
+print "Result -----> ", dirReduc(u)
+
+^^^^^^^  OUTPUT ^^^^^^^^
+Result ----->  ['NORTH', 'SOUTH', 'SOUTH', 'EAST', 'WEST', 'NORTH', 'WEST']
+NORTH SOUTH
+['SOUTH', 'SOUTH', 'EAST', 'WEST', 'NORTH', 'WEST']
+['SOUTH', 'EAST', 'WEST', 'NORTH', 'WEST']
+EAST WEST
+['SOUTH', 'WEST', 'NORTH', 'WEST']
+['SOUTH', 'NORTH', 'WEST']
+['SOUTH', 'NORTH', 'WEST']
+Result ----->  ['NORTH', 'WEST', 'SOUTH', 'EAST']
+NORTH SOUTH
+['WEST', 'SOUTH', 'EAST']
+['WEST', 'EAST']
+EAST WEST
+['WEST']
+[]
+[]
+
+
+
+####### who_likes_it.py PROGRAM #######
+def likes(names) :
+    if not names :
+        return 'no one likes this'
+    elif len(names) == 1 :
+        return '{0} likes this'.format(names[0])
+    elif len(names) == 2 :
+        return '{0} and {1} like this'.format(names[0],names[1])
+    elif len(names) == 3 :
+        return '{0}, {1} and {2} like this'.format(names[0], names[1], names[2])
+    else :
+        return '{0}, {1} and {2} others like this'.format(names[0], names[1], len(names)-2)
+
+print likes([])
+print likes(['Peter'])
+print likes(['Jacob', 'Alex'])
+print likes(['Max', 'John', 'Mark'])
+print likes(['Alex', 'Jacob', 'Mark', 'Max'])
+
+
+'''
+def likes(names):
+    n = len(names)
+    return {
+        0: 'no one likes this',
+        1: '{} likes this', 
+        2: '{} and {} like this', 
+        3: '{}, {} and {} like this', 
+        4: '{}, {} and {others} others like this'
+    }[min(4, n)].format(*names[:3], others=n-2)
+
+
+def likes(names):
+    l = len(names)
+    s = 'no one likes this'
+    
+    if l == 1:
+        s = names[0] + ' likes this'
+    elif l == 2:
+        s = ' and '.join(names) + ' like this'
+    elif l == 3:
+        s = ', '.join(names[:-1]) + ' and ' + names[-1] + ' like this'
+    elif l != 0:
+        s = ', '.join(names[:2]) + ' and ' + str(l - 2) + ' others like this'
+    
+    return s
+
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+no one likes this
+Peter likes this
+Jacob and Alex like this
+Max, John and Mark like this
+Alex, Jacob and 2 others like this
+
+
+

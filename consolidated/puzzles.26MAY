@@ -1,0 +1,403 @@
+####### 12hr_24_clock.py PROGRAM #######
+def convert_12hr_to_24hr(timestamp) :
+    if timestamp[-2] == "AM" :
+        if timestamp[:2] != '12' :
+            print "orig time is not 12 AM something"
+            print "Converted time --- {0}".format(new_time[0:len(new_time)-2])
+        else :
+            print "orig time is 12 AM something"
+            new_time = timestamp.replace('12', '00', 1)
+            print "Converted time --- {0}".format(new_time[0:len(new_time)-2])
+    elif int(timestamp[:2]) < 12 :
+        print "############## ", int(timestamp[:2])+12
+        new_time = timestamp.replace(timestamp[:2], str(int(timestamp[:2])+12 ) )
+        print "Converted time --- {0}".format(new_time[0:len(new_time)-2])
+
+print "Enter time to be converted in AM/PM format : "
+input_time = raw_input()
+convert_12hr_to_24hr(input_time)
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### 8_queens_problem.py PROGRAM #######
+board = []
+size = 8
+
+def danger(row, col):
+    """ Return if there is a danger by placing queen in
+        a given row, col
+    """
+    print board
+    for (i, j) in board:
+        if row == i: return True
+        if col == j: return True
+        if abs(row - i) == abs(col - j): return True
+
+    return False
+    
+def placequeen(row):
+    if row > size:
+        print "." #board
+    else:
+        for col in range(1, size + 1):
+            if not danger(row, col):
+                board.append((row, col))
+                placequeen(row + 1)
+                board.remove((row,col))
+
+if __name__ == "__main__":
+    placequeen(1)
+    print "###########"
+    print board
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### armstrong_numbers.py PROGRAM #######
+def print_armstrong_numbers(last_value) :
+    for i in range(1, last_value + 1) :
+        digits = len(str(i))
+        if sum(j**digits for j in map(int, str(i))) == i :
+            print "{0} is an armstrong number ".format(i)
+
+print "Enter the final value upto which armstrong numbers are to be found : "
+print_armstrong_numbers(int(raw_input()))
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### count_ants.py PROGRAM #######
+st = '...ant...ant..nat.ant.t..ant...ant..ant..ant.anant..t'
+def count_dead_ants(st):
+    print st
+    count = 0
+    st.replace('.', ' ')
+    for i in st.split(' ') :
+        if (i != 'ant' and i != '' ) :
+            count += 1
+        elif i + st
+    print count
+
+count_dead_ants("ant ant ant ant")
+count_dead_ants("ant anantt aantnt")
+count_dead_ants("ant ant .... a nt")
+
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### even_at_even_positions.py PROGRAM #######
+orig_lst = [2,1,3,4,7,9,24,98]
+print orig_lst
+def even_at_even_odd_at_odd(i):
+    if (orig_lst[i] % 2 ==0 and (i+1)%2 ==0) or (orig_lst[i] % 2 == 1 and (i+1) % 2 == 1) :
+        return True
+    return False
+
+def swap_with_next_proper_number(i) :
+    for j in range(i+1,len(orig_lst)) :
+        if (orig_lst[i] % 2) != (orig_lst[j] % 2) :
+            orig_lst[i] = orig_lst[j] + orig_lst[i]
+            orig_lst[j] = orig_lst[i] - orig_lst[j]
+            orig_lst[i] = orig_lst[i] - orig_lst[j]       
+
+for index in range(len(orig_lst)) :
+    if not even_at_even_odd_at_odd(index) :
+        swap_with_next_proper_number(index)
+
+print orig_lst
+        
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### find_no_of_pairs.py PROGRAM #######
+lst = [1,4,3,5,7,6,5,9,11,8]
+k = 3
+count = 0
+pairs = []
+print "Input : ", lst
+for i in lst :
+    if i + k in lst :
+        count += 1
+        pairs.append((i, i+k))
+print "Number of pairs whose difference is {0} = {1} ".format(k,count)
+print pairs
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### isprime.py PROGRAM #######
+'''
+Check for primality for both decimal inputs and binary inputs
+'''
+
+lst = [2, 4, 6, 7, 9, 13, 17, 99, 127, 139]
+print lst
+prime = []
+
+def is_composite(n) :
+    for i in range(2, n/2 + 1) :
+        if n % i == 0 :
+            return True
+    return False
+
+for n in lst :
+    if is_composite(n) :
+        continue
+    else :
+        prime.append(n)
+print prime
+
+print "Enter number to check for Primality : "
+no = raw_input()
+if not is_composite(int(no, 2)):
+    print "Entered number is prime"
+else :
+    print "Entered number is composite"
+    
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### list_of_dict_to_string.py PROGRAM #######
+namelist =[ {'name': 'Bart'}, {'name': 'Lisa'}, {'name': 'Maggie'} ]
+output = ' '.join([name["name"] for name in namelist])
+output = output.replace(output.split(' ')[-1], "& "+output.split(' ')[-1])
+print output.replace(output.split(' ')[0], output.split(' ')[0] + ",")
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### list_search.py PROGRAM #######
+def in_array(array1, array2):
+    lst = []
+    array2 = ' '.join([element for element in array2])
+    for element in array1:
+        if element in array2 :
+            lst.append(element)
+    return lst
+
+    return any(element in array2 for element in array1)
+
+
+a1 = ["live", "arp", "strong"]
+a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+print in_array(a1,a2)
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### longest_palindrome.py PROGRAM #######
+input_str = "abcddbcaaaaasbcdabcdaaadcbaae"
+longest_palindrome = ""
+x,y = 0,0
+def get_reversed(ipstr):
+    rev_str = ""
+    for i in ipstr :
+        rev_str = i + rev_str
+    return rev_str
+
+for i in range(len(input_str)) :
+    for j in range(i,len(input_str)) :
+        sub_str = input_str[i:j]
+        reversed_str = get_reversed(sub_str)
+        reversed_str = sub_str[::-1]
+        if reversed_str == sub_str and len(reversed_str) > len(longest_palindrome) :
+                longest_palindrome = reversed_str
+                x,y = i,j
+                print "#####", input_str[i:j] , reversed_str
+print longest_palindrome
+print "palindrome start and end positions - ({0}, {1})".format(x,y)
+            
+
+
+    
+    
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### movie_ticket_denominations.py PROGRAM #######
+def check_ticket_price_denominations(price_list) :
+    opening_bal = 0
+    for deno in price_list :
+        if deno - 25 <= opening_bal :
+            opening_bal += 25
+        else :
+            return False
+    return True
+
+print [25,25,50,100,50]
+print check_ticket_price_denominations([25,25,50,100,50])
+print [25,50,100]
+print check_ticket_price_denominations([25,50,100])
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### n_staircase.py PROGRAM #######
+n = int(raw_input())
+for i in range(1, n+1) :
+    for j in range(1, n-i+1):
+        print "",
+    for j in range(1,i+1) :
+        print "#",
+    print ""
+
+for i in range(1, n+1) :
+    for j in range(1, (2*n)-(2*i)+1):
+        print '',
+    for j in range(1,i+1) :
+        print '#',
+    print ""
+
+for i in range(1, n+1) :
+    print ' '*(n-i),
+    print '#'*i
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### odd_at_odd_positions.py PROGRAM #######
+orig_lst = [2,1,3,4,7,9,24,98]
+odd_lst = []
+even_lst = []
+new_lst = []
+print orig_lst
+for i in orig_lst :
+    if i % 2 == 0 :
+        even_lst.append(i)
+    else:
+        odd_lst.append(i)
+
+for i in range(len(orig_lst)) :
+    if i % 2 == 0 :
+        if len(odd_lst) > 0 :
+            new_lst.append(odd_lst.pop(0))
+        else :
+            break
+    else :
+        if len(even_lst) > 0 :
+            new_lst.append(even_lst.pop(0))
+        else :
+            break
+print new_lst
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### rec_dir.py PROGRAM #######
+#!/usr/bin/python 
+
+import os
+import sys
+import time
+
+def make_files(folder='test',filename='1', size='1'):
+    retry = 3
+    while retry:
+        try:
+            os.makedirs(folder)
+            break
+        except Exception as e:
+            print "retrying folder create...\n"
+            retry = retry - 1
+            if retry <= 0:
+                print "Reached max retry to create folder, Error:{0}".format(str(e))
+#                raise e
+        
+    filepath = "{0}/{1}".format(folder, filename)
+    with open(filepath, "w") as fd:
+        fd.seek(size - 1)
+        fd.write("\0")
+
+if __name__ == '__main__':
+    if len(sys.argv) != 4:
+        print "Usage: rec_dir <Root folders> <Nested folder> <File Size>\n"
+        sys.exit(1)
+    rootFolderCount = int(sys.argv[1])
+    subFolderCount = int(sys.argv[2])
+    fileSize = int(sys.argv[3])
+
+    for i in xrange(rootFolderCount):
+        for j in xrange(subFolderCount):
+            subFolder = "P-{0}{1}/sub{2}".format(i, time.time(), time.time())
+            make_files(subFolder, 'f-{0}'.format(time.time()), fileSize)
+     
+    
+    
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### remove_dups.py PROGRAM #######
+lst = [1,1,1,2,2,2,3,3,6,6,6,6,6,7,7,4,4,1,1,1,1,1,1,2,2,2,2,2,4,4,4,4,4,6,6,6,6,6,6,6,6,6,6,6]
+print lst
+new_lst = []
+for i in lst :
+    if i not in new_lst :
+        new_lst.append(i)
+print new_lst
+
+j = 1
+for i in range(1, len(lst)):
+    if lst[i] != lst[i-1] :
+        lst[j] = lst[i]
+        j += 1
+lst = lst[0:j]
+'''for i in range(j,len(lst)):
+    lst.pop()
+'''
+print lst
+
+'''
+i = 1
+orig_len = len(lst)
+while i <  orig_len :
+    if lst[i] == lst[i-1] :
+        lst.pop(i)
+        orig_len -= 1
+        i += 1
+        print orig_len, i, lst
+print lst
+'''
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### remove_successive_dups.py PROGRAM #######
+lst = [1,1,1,2,2,2,1,1,1,1,3,3,6,6,6,6,6,3,3,3,3,3,1,1]
+print lst
+encountered = -1
+new_lst = []
+for i in lst :
+    if encountered != i :
+        new_lst.append(i)
+        encountered = i
+print new_lst
+
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### str_number_reverse.py PROGRAM #######
+orig_str = "srinivasan_subramanian"
+orig_number = 1234567890
+print orig_number, orig_str
+reversed_number = 0
+reversed_str = ""
+while orig_number // 10 != 0 :
+    reversed_number = (reversed_number * 10) + (orig_number % 10)
+    orig_number //= 10
+reversed_number = (reversed_number * 10) + (orig_number % 10)
+
+for i in range(len(orig_str)) :
+    reversed_str += 
+
+print reversed_number
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+

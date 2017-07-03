@@ -1,0 +1,552 @@
+####### asc_des_rotated.py PROGRAM #######
+def find_asc_des_rotated(lst) :
+    asc = False
+    des = False
+    for i in range(len(lst) -2) :
+        if lst[i] > max(lst[i+1], lst[i+2]) :
+            des = True
+        elif lst[i] < min(lst[i+1], lst[i+2]) :
+            asc = True
+        elif lst[i] > lst[i+1] and lst[i] < lst[i+2] :
+            print "The list is descending and rotated with max element {0}\n".format(max(lst))
+            return
+        elif lst[i] < lst[i+1]  and lst[i] > lst[i+2] :
+            print "The list is ascending and rotated with max element {0}\n".format(max(lst))
+            return
+    if asc :
+        print "The list is ascending and unrotated with max element {0}\n".format(max(lst))
+    elif des :
+        print "The list is descending and unrotated with max element {0}\n".format(max(lst))
+    else :
+        print "Wrong input"
+
+asc_input = [1,2,3,4,5,6]
+des_input = [6,5,4,3,2,1]
+asc_rot_ip = [4,5,6,1,2,3]
+des_rot_ip = [3,2,1,6,5,4]
+
+print asc_input
+find_asc_des_rotated(asc_input)
+print des_input
+find_asc_des_rotated(des_input)
+print asc_rot_ip
+find_asc_des_rotated(asc_rot_ip)
+print des_rot_ip
+find_asc_des_rotated(des_rot_ip)
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### bst_or_not.py PROGRAM #######
+import sys
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Tree() :
+    def __init__(self):
+        self.root = Node(4)
+        self.printed_val = - sys.maxint -1
+
+    def bst_or_not(self, present_root) :
+        if present_root :
+            self.bst_or_not(present_root.left)
+            if not self.printed_val < present_root.data :
+                print "Given Tree is not a BST"
+                sys.exit(0)
+            self.printed_val = present_root.data
+            print present_root.data
+            self.bst_or_not(present_root.right)
+        else :
+            return
+
+if __name__ == "__main__" :
+    tree_root = Tree()
+    tree_root.root.left = Node(2)
+    tree_root.root.left.left = Node(1)
+    tree_root.root.left.right = Node(3)
+    tree_root.root.right = Node(5)
+    tree_root.bst_or_not(tree_root.root)
+    print "Given tree is a BST"
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### find_number_of_islands.py PROGRAM #######
+'''
+Given a 2D matrix with elements 1 and 0, where 1 is land and 0 is water. Find the number of islands. ( http://www.geeksforgeeks.org/find-number-of-islands/ )
+'''
+
+def find_no_of_islands(lst):
+    no_of_islands = 0
+    for row in range(1,len(lst)-1):
+        for col in range(1, len(lst[0])-1) :
+            if lst[row][col] == 0 and all( lst[x[0]][x[1]] == 1 for x in get_vals_to_eval(row,col)) :
+                no_of_islands += 1 
+    print "Number of islands in the given matrix is : {0} ".format(no_of_islands)
+
+def get_vals_to_eval(row, col) :
+    list_of_vals_to_eval = []
+    for i in range(row-1, row+2) :
+        for j in range(col-1, col+2) :
+            if (i,j) != (row,col) :
+                list_of_vals_to_eval.append([i,j])
+                print i,j
+    print "List to compare : -> {0} ".format(list_of_vals_to_eval)
+    return list_of_vals_to_eval
+
+input_matrix = [ [1,1,1], [1,0,1], [1,1,1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+input_matrix = [ [1, 1, 0, 0, 0], [0, 1, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 0, 1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+^^^^^^^  OUTPUT ^^^^^^^^
+
+
+
+####### asc_des_rotated.py PROGRAM #######
+def find_asc_des_rotated(lst) :
+    asc = False
+    des = False
+    for i in range(len(lst) -2) :
+        if lst[i] > max(lst[i+1], lst[i+2]) :
+            des = True
+        elif lst[i] < min(lst[i+1], lst[i+2]) :
+            asc = True
+        elif lst[i] > lst[i+1] and lst[i] < lst[i+2] :
+            print "The list is descending and rotated with max element {0}\n".format(max(lst))
+            return
+        elif lst[i] < lst[i+1]  and lst[i] > lst[i+2] :
+            print "The list is ascending and rotated with max element {0}\n".format(max(lst))
+            return
+    if asc :
+        print "The list is ascending and unrotated with max element {0}\n".format(max(lst))
+    elif des :
+        print "The list is descending and unrotated with max element {0}\n".format(max(lst))
+    else :
+        print "Wrong input"
+
+asc_input = [1,2,3,4,5,6]
+des_input = [6,5,4,3,2,1]
+asc_rot_ip = [4,5,6,1,2,3]
+des_rot_ip = [3,2,1,6,5,4]
+
+print asc_input
+find_asc_des_rotated(asc_input)
+print des_input
+find_asc_des_rotated(des_input)
+print asc_rot_ip
+find_asc_des_rotated(asc_rot_ip)
+print des_rot_ip
+find_asc_des_rotated(des_rot_ip)
+^^^^^^^  OUTPUT ^^^^^^^^
+[1, 2, 3, 4, 5, 6]
+The list is ascending and unrotated with max element 6
+
+[6, 5, 4, 3, 2, 1]
+The list is descending and unrotated with max element 6
+
+[4, 5, 6, 1, 2, 3]
+The list is ascending and rotated with max element 6
+
+[3, 2, 1, 6, 5, 4]
+The list is descending and rotated with max element 6
+
+
+
+
+####### bst_or_not.py PROGRAM #######
+import sys
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Tree() :
+    def __init__(self):
+        self.root = Node(4)
+        self.printed_val = - sys.maxint -1
+
+    def bst_or_not(self, present_root) :
+        if present_root :
+            self.bst_or_not(present_root.left)
+            if not self.printed_val < present_root.data :
+                print "Given Tree is not a BST"
+                sys.exit(0)
+            self.printed_val = present_root.data
+            print present_root.data
+            self.bst_or_not(present_root.right)
+        else :
+            return
+
+if __name__ == "__main__" :
+    tree_root = Tree()
+    tree_root.root.left = Node(2)
+    tree_root.root.left.left = Node(1)
+    tree_root.root.left.right = Node(3)
+    tree_root.root.right = Node(5)
+    tree_root.bst_or_not(tree_root.root)
+    print "Given tree is a BST"
+^^^^^^^  OUTPUT ^^^^^^^^
+1
+2
+3
+4
+5
+Given tree is a BST
+
+
+
+####### find_number_of_islands.py PROGRAM #######
+'''
+Given a 2D matrix with elements 1 and 0, where 1 is land and 0 is water. Find the number of islands. ( http://www.geeksforgeeks.org/find-number-of-islands/ )
+'''
+
+def find_no_of_islands(lst):
+    no_of_islands = 0
+    for row in range(1,len(lst)-1):
+        for col in range(1, len(lst[0])-1) :
+            if lst[row][col] == 0 and all( lst[x[0]][x[1]] == 1 for x in get_vals_to_eval(row,col)) :
+                no_of_islands += 1 
+    print "Number of islands in the given matrix is : {0} ".format(no_of_islands)
+
+def get_vals_to_eval(row, col) :
+    list_of_vals_to_eval = []
+    for i in range(row-1, row+2) :
+        for j in range(col-1, col+2) :
+            if (i,j) != (row,col) :
+                list_of_vals_to_eval.append([i,j])
+                print i,j
+    print "List to compare : -> {0} ".format(list_of_vals_to_eval)
+    return list_of_vals_to_eval
+
+input_matrix = [ [1,1,1], [1,0,1], [1,1,1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+input_matrix = [ [1, 1, 0, 0, 0], [0, 1, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 0, 1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+^^^^^^^  OUTPUT ^^^^^^^^
+## Input Matrix ##
+[1, 1, 1]
+[1, 0, 1]
+[1, 1, 1]
+0 0
+0 1
+0 2
+1 0
+1 2
+2 0
+2 1
+2 2
+List to compare : -> [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]] 
+Number of islands in the given matrix is : 1 
+## Input Matrix ##
+[1, 1, 0, 0, 0]
+[0, 1, 0, 0, 1]
+[1, 0, 0, 1, 1]
+[0, 0, 0, 0, 0]
+[1, 0, 1, 0, 1]
+0 1
+0 2
+0 3
+1 1
+1 3
+2 1
+2 2
+2 3
+List to compare : -> [[0, 1], [0, 2], [0, 3], [1, 1], [1, 3], [2, 1], [2, 2], [2, 3]] 
+0 2
+0 3
+0 4
+1 2
+1 4
+2 2
+2 3
+2 4
+List to compare : -> [[0, 2], [0, 3], [0, 4], [1, 2], [1, 4], [2, 2], [2, 3], [2, 4]] 
+1 0
+1 1
+1 2
+2 0
+2 2
+3 0
+3 1
+3 2
+List to compare : -> [[1, 0], [1, 1], [1, 2], [2, 0], [2, 2], [3, 0], [3, 1], [3, 2]] 
+1 1
+1 2
+1 3
+2 1
+2 3
+3 1
+3 2
+3 3
+List to compare : -> [[1, 1], [1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2], [3, 3]] 
+2 0
+2 1
+2 2
+3 0
+3 2
+4 0
+4 1
+4 2
+List to compare : -> [[2, 0], [2, 1], [2, 2], [3, 0], [3, 2], [4, 0], [4, 1], [4, 2]] 
+2 1
+2 2
+2 3
+3 1
+3 3
+4 1
+4 2
+4 3
+List to compare : -> [[2, 1], [2, 2], [2, 3], [3, 1], [3, 3], [4, 1], [4, 2], [4, 3]] 
+2 2
+2 3
+2 4
+3 2
+3 4
+4 2
+4 3
+4 4
+List to compare : -> [[2, 2], [2, 3], [2, 4], [3, 2], [3, 4], [4, 2], [4, 3], [4, 4]] 
+Number of islands in the given matrix is : 0 
+
+
+
+####### asc_des_rotated.py PROGRAM #######
+def find_asc_des_rotated(lst) :
+    asc = False
+    des = False
+    for i in range(len(lst) -2) :
+        if lst[i] > max(lst[i+1], lst[i+2]) :
+            des = True
+        elif lst[i] < min(lst[i+1], lst[i+2]) :
+            asc = True
+        elif lst[i] > lst[i+1] and lst[i] < lst[i+2] :
+            print "The list is descending and rotated with max element {0}\n".format(max(lst))
+            return
+        elif lst[i] < lst[i+1]  and lst[i] > lst[i+2] :
+            print "The list is ascending and rotated with max element {0}\n".format(max(lst))
+            return
+    if asc :
+        print "The list is ascending and unrotated with max element {0}\n".format(max(lst))
+    elif des :
+        print "The list is descending and unrotated with max element {0}\n".format(max(lst))
+    else :
+        print "Wrong input"
+
+asc_input = [1,2,3,4,5,6]
+des_input = [6,5,4,3,2,1]
+asc_rot_ip = [4,5,6,1,2,3]
+des_rot_ip = [3,2,1,6,5,4]
+
+print asc_input
+find_asc_des_rotated(asc_input)
+print des_input
+find_asc_des_rotated(des_input)
+print asc_rot_ip
+find_asc_des_rotated(asc_rot_ip)
+print des_rot_ip
+find_asc_des_rotated(des_rot_ip)
+^^^^^^^  OUTPUT ^^^^^^^^
+[1, 2, 3, 4, 5, 6]
+The list is ascending and unrotated with max element 6
+
+[6, 5, 4, 3, 2, 1]
+The list is descending and unrotated with max element 6
+
+[4, 5, 6, 1, 2, 3]
+The list is ascending and rotated with max element 6
+
+[3, 2, 1, 6, 5, 4]
+The list is descending and rotated with max element 6
+
+
+
+
+####### bst_or_not.py PROGRAM #######
+import sys
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Tree() :
+    def __init__(self):
+        self.root = Node(4)
+        self.printed_val = - sys.maxint -1
+
+    def bst_or_not(self, present_root) :
+        if present_root :
+            self.bst_or_not(present_root.left)
+            if not self.printed_val < present_root.data :
+                print "Given Tree is not a BST"
+                sys.exit(0)
+            self.printed_val = present_root.data
+            print present_root.data
+            self.bst_or_not(present_root.right)
+        else :
+            return
+
+if __name__ == "__main__" :
+    tree_root = Tree()
+    tree_root.root.left = Node(2)
+    tree_root.root.left.left = Node(1)
+    tree_root.root.left.right = Node(3)
+    tree_root.root.right = Node(5)
+    tree_root.bst_or_not(tree_root.root)
+    print "Given tree is a BST"
+^^^^^^^  OUTPUT ^^^^^^^^
+1
+2
+3
+4
+5
+Given tree is a BST
+
+
+
+####### find_number_of_islands.py PROGRAM #######
+'''
+Given a 2D matrix with elements 1 and 0, where 1 is land and 0 is water. Find the number of islands. ( http://www.geeksforgeeks.org/find-number-of-islands/ )
+'''
+
+def find_no_of_islands(lst):
+    no_of_islands = 0
+    for row in range(1,len(lst)-1):
+        for col in range(1, len(lst[0])-1) :
+            if lst[row][col] == 0 and all( lst[x[0]][x[1]] == 1 for x in get_vals_to_eval(row,col)) :
+                no_of_islands += 1 
+    print "Number of islands in the given matrix is : {0} ".format(no_of_islands)
+
+def get_vals_to_eval(row, col) :
+    list_of_vals_to_eval = []
+    for i in range(row-1, row+2) :
+        for j in range(col-1, col+2) :
+            if (i,j) != (row,col) :
+                list_of_vals_to_eval.append([i,j])
+                print i,j
+    print "List to compare : -> {0} ".format(list_of_vals_to_eval)
+    return list_of_vals_to_eval
+
+input_matrix = [ [1,1,1], [1,0,1], [1,1,1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+input_matrix = [ [1, 1, 0, 0, 0], [0, 1, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 0, 1] ]
+print "## Input Matrix ##"
+for i in range(len(input_matrix)) :
+    print input_matrix[i]
+find_no_of_islands(input_matrix)
+
+^^^^^^^  OUTPUT ^^^^^^^^
+## Input Matrix ##
+[1, 1, 1]
+[1, 0, 1]
+[1, 1, 1]
+0 0
+0 1
+0 2
+1 0
+1 2
+2 0
+2 1
+2 2
+List to compare : -> [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]] 
+Number of islands in the given matrix is : 1 
+## Input Matrix ##
+[1, 1, 0, 0, 0]
+[0, 1, 0, 0, 1]
+[1, 0, 0, 1, 1]
+[0, 0, 0, 0, 0]
+[1, 0, 1, 0, 1]
+0 1
+0 2
+0 3
+1 1
+1 3
+2 1
+2 2
+2 3
+List to compare : -> [[0, 1], [0, 2], [0, 3], [1, 1], [1, 3], [2, 1], [2, 2], [2, 3]] 
+0 2
+0 3
+0 4
+1 2
+1 4
+2 2
+2 3
+2 4
+List to compare : -> [[0, 2], [0, 3], [0, 4], [1, 2], [1, 4], [2, 2], [2, 3], [2, 4]] 
+1 0
+1 1
+1 2
+2 0
+2 2
+3 0
+3 1
+3 2
+List to compare : -> [[1, 0], [1, 1], [1, 2], [2, 0], [2, 2], [3, 0], [3, 1], [3, 2]] 
+1 1
+1 2
+1 3
+2 1
+2 3
+3 1
+3 2
+3 3
+List to compare : -> [[1, 1], [1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2], [3, 3]] 
+2 0
+2 1
+2 2
+3 0
+3 2
+4 0
+4 1
+4 2
+List to compare : -> [[2, 0], [2, 1], [2, 2], [3, 0], [3, 2], [4, 0], [4, 1], [4, 2]] 
+2 1
+2 2
+2 3
+3 1
+3 3
+4 1
+4 2
+4 3
+List to compare : -> [[2, 1], [2, 2], [2, 3], [3, 1], [3, 3], [4, 1], [4, 2], [4, 3]] 
+2 2
+2 3
+2 4
+3 2
+3 4
+4 2
+4 3
+4 4
+List to compare : -> [[2, 2], [2, 3], [2, 4], [3, 2], [3, 4], [4, 2], [4, 3], [4, 4]] 
+Number of islands in the given matrix is : 0 
+
+
+
